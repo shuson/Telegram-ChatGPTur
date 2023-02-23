@@ -13,7 +13,7 @@ bot.setWebhook("{URL}bot{HOOK}/".format(URL=URL, HOOK=BOT_TOKEN))
 app = Flask(__name__)
 
 
-@app.route("/{}".format(BOT_TOKEN), methods=["POST"])
+@app.route("/bot{}".format(BOT_TOKEN), methods=["POST"])
 def respond():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
