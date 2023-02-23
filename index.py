@@ -18,6 +18,8 @@ app = Flask(__name__)
 def respond():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
+    if not update or not update.message:
+        return False
     chat_id = update.message.chat.id
     msg_id = update.message.message_id
 
@@ -39,7 +41,7 @@ def respond():
 
 @app.route("/getme", methods=["GET"])
 def set_webhook():
-    return hook_url
+    return "created by shuson"
 
 
 @app.route("/")
