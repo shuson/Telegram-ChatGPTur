@@ -8,12 +8,14 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 bot = telegram.Bot(token=BOT_TOKEN)
-bot.setWebhook("{URL}bot{HOOK}/".format(URL=URL, HOOK=BOT_TOKEN))
+hook_url = "{URL}bot{HOOK}/".format(URL=URL, HOOK=BOT_TOKEN)
+
+bot.setWebhook(hook_url)
 
 app = Flask(__name__)
 
 
-@app.route("/bot{}".format(BOT_TOKEN), methods=["POST"])
+@app.route("/bothook", methods=["POST"])
 def respond():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
@@ -38,7 +40,7 @@ def respond():
 
 @app.route("/getme", methods=["GET"])
 def set_webhook():
-    return BOT_TOKEN
+    return hook_url
 
 
 @app.route("/")
