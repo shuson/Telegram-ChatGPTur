@@ -8,7 +8,7 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN')
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
 bot = telegram.Bot(token=BOT_TOKEN)
-bot.setWebhook("{URL}{HOOK}/".format(URL=URL, HOOK=BOT_TOKEN))
+bot.setWebhook("{URL}bot{HOOK}/".format(URL=URL, HOOK=BOT_TOKEN))
 
 app = Flask(__name__)
 
@@ -38,7 +38,7 @@ def respond():
 
 @app.route("/getme", methods=["GET"])
 def set_webhook():
-    return bot.get_me()
+    return BOT_TOKEN
 
 
 @app.route("/")
